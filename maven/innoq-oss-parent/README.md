@@ -16,12 +16,12 @@ cycle is not going to work, the perform step has to be done manually.
 The process is 
 
      $ mvn clean release:clean release:prepare
-     $ mkdir target && git clone git@github.com:innoq/innoQ-OSS-resources.git target/checkout
+     $ git clone git@github.com:innoq/innoQ-OSS-resources.git target/checkout
      $ cd target/checkout
      $ git checkout TAG-CHOSEN-IN-PREPARE-STEP
+     $ cd maven/innoq-oss-parent
      $ cp pom.xml innoq-oss-parent-VERSION_OF_RELEASE.pom
-     $ mvn gpg:sign-and-deploy-file
-     -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ -DrepositoryId=sonatype-nexus-staging -DpomFile=innoq-oss-parent-VERSION_OF_RELEASE.pom -Dfile=innoq-oss-parent-VERSION_OF_RELEASE.pom
+     $ mvn gpg:sign-and-deploy-file -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ -DrepositoryId=sonatype-nexus-staging -DpomFile=innoq-oss-parent-VERSION_OF_RELEASE.pom -Dfile=innoq-oss-parent-VERSION_OF_RELEASE.pom
 
 This should do the trick.  After that the target/checkout directory
 can be removed.
