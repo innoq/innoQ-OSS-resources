@@ -26,7 +26,7 @@
   <groupId>com.innoq</groupId>
   <artifactId>innoq-oss-parent</artifactId>
   <packaging>pom</packaging>
-  <version>2-SNAPSHOT</version>
+  <version>1</version>
   <name>innoq-oss-parent</name>
   <description>Parent POM for innoQ's Open Source Java Projects</description>
   <url>https://github.com/innoq/innoQ-OSS-resources</url>
