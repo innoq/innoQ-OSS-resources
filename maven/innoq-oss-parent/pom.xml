@@ -45,7 +45,7 @@
     <url>http://innoq.com/</url>
   </organization>
 
-  <!-- information of this POM, child project's must override this override -->
+  <!-- information of this POM, child project's must override this -->
 
   <scm>
     <connection>scm:git:git@github.com:innoq/innoQ-OSS-resources.git</connection>
