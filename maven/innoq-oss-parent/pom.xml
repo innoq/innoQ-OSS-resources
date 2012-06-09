@@ -25,6 +25,7 @@
 
   <groupId>com.innoq</groupId>
   <artifactId>innoq-oss-parent</artifactId>
+
   <packaging>pom</packaging>
   <version>1-SNAPSHOT</version>
   <name>innoq-oss-parent</name>
@@ -59,4 +60,33 @@
       <email>stefan.bodewig@innoq dot com</email>
     </developer>
   </developers>
+
+  <profiles>
+    <!-- used when releasing this POM as it doesn't live in the git
+         repository's root and the release plugin needs to know its
+         path -->
+    <profile>
+      <id>release-parent</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>default</id>
+                <goals>
+                  <goal>perform</goal>
+                </goals>
+                <configuration>
+                  <pomFileName>maven/innoq-oss-parent/pom.xml</pomFileName>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
 </project>
