@@ -21,7 +21,7 @@
   <artifactId>innoq-oss-parent</artifactId>
 
   <packaging>pom</packaging>
-  <version>2</version>
+  <version>3-SNAPSHOT</version>
   <name>innoq-oss-parent</name>
   <description>Parent POM for innoQ's Open Source Java Projects</description>
   <url>https://github.com/innoq/innoQ-OSS-resources</url>
