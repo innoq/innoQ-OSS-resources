@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-  Copyright (C) 2012,2015 innoQ Deutschland GmbH
+  Copyright (C) 2012,2015.2025 innoQ Deutschland GmbH
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@
   <artifactId>innoq-oss-parent</artifactId>
 
   <packaging>pom</packaging>
-  <version>3-SNAPSHOT</version>
+  <version>4-SNAPSHOT</version>
   <name>innoq-oss-parent</name>
-  <description>Parent POM for innoQ's Open Source Java Projects</description>
+  <description>Parent POM for INNOQ's Open Source Java Projects</description>
   <url>https://github.com/innoq/innoQ-OSS-resources</url>
 
   <licenses>
@@ -55,13 +55,21 @@
     </developer>
   </developers>
 
+  <properties>
+    <maven.central.publishing.plugin>0.7.0</maven.central.publishing.plugin>
+    <maven.enforcer.plugin.version>3.5.0</maven.enforcer.plugin.version>
+    <maven.gpg.plugin.version>3.2.7</maven.gpg.plugin.version>
+    <maven.javadoc.plugin.version>3.11.2</maven.javadoc.plugin.version>
+    <maven.source.plugin.version>3.3.1</maven.source.plugin.version>
+  </properties>
+
   <build>
     <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-enforcer-plugin</artifactId>
-          <version>1.4.1</version>
+          <version>${maven.enforcer.plugin.version}</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -69,23 +77,13 @@
 
   <profiles>
     <profile>
-      <id>sonatype-oss-release</id>
-      <distributionManagement>
-        <snapshotRepository>
-          <id>sonatype-nexus-snapshots</id>
-          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-          <id>sonatype-nexus-staging</id>
-          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-      </distributionManagement>
+      <id>sonatype-central-release</id>
       <build>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
-            <version>2.2.1</version>
+            <version>${maven.source.plugin.version}</version>
             <executions>
               <execution>
                 <id>attach-sources</id>
@@ -98,6 +96,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven.javadoc.plugin.version}</version>
             <executions>
               <execution>
                 <id>attach-javadocs</id>
@@ -110,7 +109,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.5</version>
+            <version>${maven.gpg.plugin.version}</version>
             <executions>
               <execution>
                 <id>sign-artifacts</id>
@@ -120,6 +119,15 @@
                 </goals>
               </execution>
             </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <version>${maven.central.publishing.plugin}</version>
+            <extensions>true</extensions>
+            <configuration>
+              <publishingServerId>sonatype-central</publishingServerId>
+            </configuration>
           </plugin>
         </plugins>
       </build>

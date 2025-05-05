@@ -7,21 +7,24 @@ with reasoning along the lines of "git is one repo per project and mvn
 is POM at the root of the project".  Of course this doesn't help if
 Java stuff is only part of the project ...
 
-This means the usual
+Given this really is just a simple pom, we can trivially perform the
+steps manually.
 
-     $ mvn release:clean release:prepare
-     $ mvn release:perform
+Create a branch you want to hold your release and check it out.
 
-cycle is not going to work, the perform step has to be done manually.
-The process is 
+Then
 
-     $ mvn clean release:clean release:prepare
-     $ git clone git@github.com:innoq/innoQ-OSS-resources.git target/checkout
-     $ cd target/checkout
-     $ git checkout TAG-CHOSEN-IN-PREPARE-STEP
-     $ cd maven/innoq-oss-parent
-     $ cp pom.xml innoq-oss-parent-VERSION_OF_RELEASE.pom
-     $ mvn gpg:sign-and-deploy-file -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ -DrepositoryId=sonatype-nexus-staging -DpomFile=innoq-oss-parent-VERSION_OF_RELEASE.pom -Dfile=innoq-oss-parent-VERSION_OF_RELEASE.pom
+```
+mvn versions:set -DnewVersion=WHATEVER-RELEASE-VERSION
+git add pom.xml
+git commit -m "release version WHATEVER-RELEASE-VERSION"
+git tag -s -m "release version WHATEVER-RELEASE-VERSION" TAG-NAME
+mvn clean deploy -Psonatype-central-release,release
+mvn versions:set -DnewVersion=WHATEVER-NEXT-VERSION-SNAPSHOT
+```
 
-This should do the trick.  After that the target/checkout directory
-can be removed.
+This should do the trick. Publish the release via
+https://central.sonatype.com/publishing/deployments .
+
+Comit, push the branch and tags, merge the branch to `master`.
+
